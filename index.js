@@ -1,4 +1,5 @@
 const rwClient = require("./twitterClient.js")
+const CronJob = require("cron").CronJob
 
 const currentDate = new Date();
 const europaLeaugeFinal = new Date("2023-05-31")
@@ -14,4 +15,8 @@ const tweet = async () => {
 	}
 }
 
-tweet()
+const job = new CronJob("0 5 * * *", () => {
+	tweet()
+})
+
+job.start()
