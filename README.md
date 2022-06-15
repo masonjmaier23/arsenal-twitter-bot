@@ -1,6 +1,6 @@
 # arsenal-twitter-bot
 
-twitter bot that posts how many days until the UEFA Europa Leauge final
+[@ArsenalEuroBot](https://twitter.com/ArsenalEuroBot) - twitter bot that tweets how many days until the UEFA Europa League Final
 
 ## twitter-api-v2
 
