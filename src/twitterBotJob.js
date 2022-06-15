@@ -6,6 +6,7 @@ const europaLeaugeFinal = new Date("2023-05-31")
 const days = (europaLeaugeFinal.getTime() - currentDate.getTime()) / (1000 * 3600 * 24)
 const content = (Math.ceil(days) + " days until Europa Leauge glory!")
 
+
 const tweet = async () => {
 	try {
 		await rwClient.v2.tweet(content)
@@ -15,8 +16,9 @@ const tweet = async () => {
 	}
 }
 
-const job = cron.schedule("0 5 * * *", () => {
+const job = cron.schedule("* * * * *", () => {
 	tweet()
+	console.log("sent a tweet")
 })
 
-job.start()
+module.exports = { job }
