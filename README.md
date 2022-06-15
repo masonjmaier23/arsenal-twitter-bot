@@ -5,3 +5,7 @@
 ## twitter-api-v2
 
 [twitter-api-v2 download](https://www.npmjs.com/package/twitter-api-v2)
+
+## test locally
+
+`npm start`
