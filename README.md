@@ -1,6 +1,8 @@
 # arsenal-twitter-bot
 
-[@ArsenalEuroBot](https://twitter.com/ArsenalEuroBot) - twitter bot that tweets how many days until the UEFA Europa League Final
+[@ArsenalEuroBot](https://twitter.com/ArsenalEuroBot) - twitter bot that tweets how many days until the UEFA Europa League Final.
+
+https://arsenal-twitter-bot.herokuapp.com/
 
 ## twitter-api-v2
 
@@ -8,4 +10,4 @@
 
 ## test locally
 
-`npm start`
+`npm start` or `node app.js`
