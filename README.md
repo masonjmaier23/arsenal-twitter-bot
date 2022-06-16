@@ -17,3 +17,16 @@ https://arsenal-twitter-bot.herokuapp.com/
 ## email
 
 goonertwitterbot@gmail.com
+
+## FUTURE STATE
+
+https://v3.football.api-sports.io/fixtures?team=42&season=2021
+
+- returns all Arsenal previous matchups
+
+date of next game:
+opponenet:
+form:
+leading scorer:
+leading assists:
+leadings cards:
