@@ -13,3 +13,7 @@
 ## Heroku deployment
 
 https://arsenal-twitter-bot.herokuapp.com/
+
+## Email
+
+goonertwitterbot@gmail.com
