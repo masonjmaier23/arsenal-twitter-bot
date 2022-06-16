@@ -14,6 +14,6 @@
 
 https://arsenal-twitter-bot.herokuapp.com/
 
-## Email
+## email
 
 goonertwitterbot@gmail.com
