@@ -15,7 +15,7 @@ const tweet = async () => {
 	}
 }
 
-const job = cron.schedule("* * * * *", () => {
+const job = cron.schedule("0 5 * * *", () => {
 	tweet()
 	console.log("sent a tweet")
 })
