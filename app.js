@@ -6,7 +6,7 @@ const { job } = require("./src/twitterBotJob.js");
 const app = express();
 
 app.get("/", (req, res) => {
-	res.send("Check out @ArsenalEuroBot on Twitter")
+	res.send("Check out @Gooner_Bot on Twitter")
 	job.start()
 })
 

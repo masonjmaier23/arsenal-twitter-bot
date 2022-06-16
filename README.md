@@ -1,6 +1,6 @@
 # arsenal-twitter-bot
 
-[@ArsenalEuroBot](https://twitter.com/ArsenalEuroBot) - twitter bot that tweets how many days until Arsenal's first EPL game of the season.
+[@Gooner_Bot](https://twitter.com/Gooner_Bot) - twitter bot that tweets how many days until Arsenal's first EPL game of the season.
 
 ## twitter-api-v2
 
