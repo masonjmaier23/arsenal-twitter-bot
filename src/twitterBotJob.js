@@ -36,7 +36,7 @@ const getFixture = async () => {
   });
 }
 
-const job = cron.schedule("0 9 * * *", () => {
+const job = cron.schedule("0 8 * * *", () => {
 	getFixture()
 	console.log("Successfully sent a tweet at: " + new Date())
 })
