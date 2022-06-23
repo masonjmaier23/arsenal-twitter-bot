@@ -1,24 +1,44 @@
 const rwClient = require("./twitterClient.js")
+
 const cron = require("node-cron");
+const axios = require('axios');
+
+const config = {
+	method: "get",
+	url: "https://v3.football.api-sports.io/fixtures?season=2022&team=42&next=2",
+	headers: {
+	  "x-rapidapi-key": process.env.X_RAPIDAPI_KEY,
+	  "x-rapidapi-host": process.env.X_RAPIDAPI_HOST
+	}
+  };
 
 const currentDate = new Date();
-// const europaLeaugeFinal = new Date("2023-05-31")
 const firstPremGame = new Date("2023-08-05")
 const days = (firstPremGame.getTime() - currentDate.getTime()) / (1000 * 3600 * 24)
-const content = (Math.ceil(days) + " day(s) until our Premier League opener against Crystal Palace! #COYG")
 
-const tweet = async () => {
-	try {
-		await rwClient.v2.tweet(content)
-	} catch (e) {
-		console.log(e)
-		
-	}
+const getFixture = async () => {
+	axios(config)
+  .then(function (fixtures) {
+
+	const fixtureDate = new Date(fixtures.data.response[0].fixture.date)
+	const days = (fixtureDate.getTime() - currentDate.getTime()) / (1000 * 3600 * 24)
+	const opponent = 
+		(fixtures.data.response[0].teams.home.name.includes("Arsenal") 
+			? fixtures.data.response[0].teams.away.name : 
+			fixtures.data.response[0].teams.home.name )
+	const stadium = fixtures.data.response[0].fixture.venue.name
+	const city = fixtures.data.response[0].fixture.venue.city
+	const content = (Math.ceil(days) + ` day(s) til we play ${opponent} at ${stadium}, ${city} `)
+	rwClient.v2.tweet(content)
+  })
+  .catch(function (error) {
+	console.log(error);
+  });
 }
 
-const job = cron.schedule("0 5 * * *", () => {
-	tweet()
-	console.log("sent a tweet")
+const job = cron.schedule("* * * * *", () => {
+	getFixture()
+	console.log("Successfully sent a tweet at: " + new Date())
 })
 
 module.exports = { job }
