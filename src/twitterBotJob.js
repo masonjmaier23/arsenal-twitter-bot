@@ -37,7 +37,7 @@ const tweetBot = async () => {
   });
 }
 
-const job = cron.schedule("0 8 * * *", () => {
+const job = cron.schedule("0 15 * * *", () => {
 	tweetBot()
 	console.log("Successfully sent a tweet at: " + new Date())
 })
