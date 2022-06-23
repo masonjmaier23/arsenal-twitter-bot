@@ -17,3 +17,7 @@ https://arsenal-twitter-bot.herokuapp.com/
 ## email
 
 goonertwitterbot@gmail.com
+
+## NEXT
+
+https://www.api-football.com/documentation-beta#tag/Predictions
