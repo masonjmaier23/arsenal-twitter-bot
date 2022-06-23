@@ -37,6 +37,7 @@ const tweetBot = async () => {
 		});
 }
 
+// heroku uses GMT
 const job = cron.schedule("0 17 * * *", () => {
 	tweetBot()
 	console.log("Successfully sent a tweet at: " + new Date())
