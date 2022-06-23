@@ -16,10 +16,9 @@ const currentDate = new Date();
 const firstPremGame = new Date("2023-08-05")
 const days = (firstPremGame.getTime() - currentDate.getTime()) / (1000 * 3600 * 24)
 
-const getFixture = async () => {
+const tweetBot = async () => {
 	axios(config)
   .then(function (fixtures) {
-
 	const fixtureDate = new Date(fixtures.data.response[0].fixture.date)
 	const days = (fixtureDate.getTime() - currentDate.getTime()) / (1000 * 3600 * 24)
 	const opponent = 
@@ -28,7 +27,9 @@ const getFixture = async () => {
 			fixtures.data.response[0].teams.home.name )
 	const stadium = fixtures.data.response[0].fixture.venue.name
 	const city = fixtures.data.response[0].fixture.venue.city
-	const content = (Math.ceil(days) + ` day(s) til we play ${opponent} at ${stadium}, ${city} `)
+	// const fixtureId = fixtures.data.response[0].fixture.id
+
+	const content = (Math.ceil(days) + ` day(s) til we play ${opponent} at ${stadium}, ${city}`)
 	rwClient.v2.tweet(content)
   })
   .catch(function (error) {
@@ -37,7 +38,7 @@ const getFixture = async () => {
 }
 
 const job = cron.schedule("0 8 * * *", () => {
-	getFixture()
+	tweetBot()
 	console.log("Successfully sent a tweet at: " + new Date())
 })
 
