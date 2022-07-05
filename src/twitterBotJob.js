@@ -12,6 +12,11 @@ const config = {
 	}
 };
 
+// const headers = {
+// 	"x-rapidapi-key": process.env.X_RAPIDAPI_KEY,
+// 	"x-rapidapi-host": process.env.X_RAPIDAPI_HOST
+// }
+
 const currentDate = new Date();
 const firstPremGame = new Date("2023-08-05")
 const days = (firstPremGame.getTime() - currentDate.getTime()) / (1000 * 3600 * 24)
@@ -28,8 +33,10 @@ const tweetBot = async () => {
 			const stadium = fixtures.data.response[0].fixture.venue.name
 			const city = fixtures.data.response[0].fixture.venue.city
 			// const fixtureId = fixtures.data.response[0].fixture.id
-
-			const content = (Math.ceil(days) + ` day(s) til we play ${opponent} at ${stadium}, ${city}`)
+			const opponentId = fixtures.data.response[0].teams.home.id
+			// const result = axios.get(`https://v3.football.api-sports.io/fixtures/headtohead?h2h=42-${opponentId}`, headers)
+			// console.log(result)
+			const content = (Math.ceil(days) + ` day(s) until Arsenal face ${opponent} at ${stadium}, ${city}`)
 			rwClient.v2.tweet(content)
 		})
 		.catch(function (error) {
