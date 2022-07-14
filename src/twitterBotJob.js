@@ -36,7 +36,7 @@ const tweetBot = async () => {
 			const opponentId = fixtures.data.response[0].teams.home.id
 			// const result = axios.get(`https://v3.football.api-sports.io/fixtures/headtohead?h2h=42-${opponentId}`, headers)
 			// console.log(result)
-			const content = (Math.ceil(days) + ` day(s) until Arsenal face ${opponent} at ${stadium}, ${city}`)
+			const content = (Math.ceil(days) + ` day(s) until Arsenal face ${opponent} at ${stadium}, ${city} #afc #coyg #goonerBot`)
 			rwClient.v2.tweet(content)
 		})
 		.catch(function (error) {
