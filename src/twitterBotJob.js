@@ -15,9 +15,12 @@ const getFixture = async () => {
 		const predictions = await axios.get(`https://v3.football.api-sports.io/predictions?fixture=${fixtureId}`, {"headers" : headers})
 
 		// days til match
-		const currentDate = new Date();
-		const fixtureDate = new Date(fixtures.data.response[0].fixture.date)
-		const days = (fixtureDate.getTime() - currentDate.getTime()) / (1000 * 3600 * 24)
+		const countDownDate = new Date(fixtures.data.response[0].fixture.date).getTime();
+		const now = new Date().getTime();
+		const timeLeft = countDownDate - now;
+		var days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+		var hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+		
 
 		// content 1 
 		const opponent = (fixtures.data.response[0].teams.home.name.includes("Arsenal") 
@@ -30,15 +33,18 @@ const getFixture = async () => {
 
 		// content 2 
 		const winner = predictions.data.response[0].predictions.winner.name
-		const winOrDraw = predictions.data.response[0].predictions.win_or_draw
+		const winOrDraw = predictions.data.response[0].predictions.win_or_draw.toLowerCase().includes("true")
+		? "Yes" : "No";
 		const overUnder = predictions.data.response[0].predictions.under_over
 		const advice = predictions.data.response[0].predictions.advice
 	
 		// tweet messages
-		const content1 = `Arsenal faces ${opponent} in ` + (Math.ceil(days)) + ` day(s) 🔴 Stadium: ${stadium} ⚪
-		Location: ${city} 🔴 League: ${leagueName} ⚪ Current Form: ${arsenalForm}`
-		const content2 = `PREDICTIONS 🔴 Winner: ${winner} ⚪ Win or Draw: ${winOrDraw} 
-		🔴 O/U: ${overUnder} ⚪ Prediction: ${advice}`
+		const content1 = `⚽ Arsenal face ${opponent} in ${days} day(s) ${hours} hr(s) 🔴 Stadium: ${stadium} ⚪
+		Location: ${city} 🔴 League: ${leagueName} ⚪ Current Form: ${arsenalForm} ⚽`
+		
+		const content2 = predictions.data.response[0].predictions.under_over.toLowerCase().includes("null") ? 
+		`⚽ PREDICTIONS 🔴 Winner: ${winner} ⚪ Draw No Bet: ${winOrDraw} ⚪ Prediction: ${advice}` : 
+		`PREDICTIONS 🔴 Winner: ${winner} ⚪ Draw No Bet: ${winOrDraw} 🔴 O/U: ${overUnder} ⚪ Prediction: ${advice} ⚽ `
 
 		// send tweets
 		rwClient.v2.tweet(content1)
@@ -50,7 +56,8 @@ const getFixture = async () => {
 }
 
 	// heroku uses GMT
-	const job = cron.schedule("*/10 * * * * *", async () => {
+	// 0 15 * * * = 8am Phoenix MST
+	const job = cron.schedule("0 15 * * *", async () => {
 		await getFixture()
 		console.log("Successfully sent a tweet at: " + new Date())
 })
