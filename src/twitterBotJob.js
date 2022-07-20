@@ -43,8 +43,8 @@ const getFixture = async () => {
 		Location: ${city} 🔴 League: ${leagueName} ⚪ Current Form: ${arsenalForm} ⚽`
 		
 		const content2 = predictions.data.response[0].predictions.under_over.toLowerCase().includes("null") ? 
-		`⚽ PREDICTIONS 🔴 Winner: ${winner} ⚪ Draw No Bet: ${winOrDraw} ⚪ Prediction: ${advice}` : 
-		`PREDICTIONS 🔴 Winner: ${winner} ⚪ Draw No Bet: ${winOrDraw} 🔴 O/U: ${overUnder} ⚪ Prediction: ${advice} ⚽ `
+		`⚽ PREDICTIONS 🔴 Winner: ${winner} ⚪ Draw No Bet: ${winOrDraw} ⚪ Prediction: ${advice} ⚽` : 
+		`⚽ PREDICTIONS 🔴 Winner: ${winner} ⚪ Draw No Bet: ${winOrDraw} 🔴 O/U: ${overUnder} ⚪ Prediction: ${advice} ⚽`
 
 		// send tweets
 		rwClient.v2.tweet(content1)
