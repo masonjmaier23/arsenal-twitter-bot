@@ -35,10 +35,10 @@ const getFixture = async () => {
 		const advice = predictions.data.response[0].predictions.advice
 	
 		// tweet messages
-		const content1 = `Arsenal faces ${opponent} in ` + (Math.ceil(days)) + ` day(s) --- Stadium: ${stadium} ---
-		Location: ${city} --- League: ${leagueName} --- Current Form: ${arsenalForm}`
-		const content2 = `PREDICTIONS --- Winner: ${winner} --- Win or Draw: ${winOrDraw} 
-		--- Over/Under: ${overUnder} --- ${advice}`
+		const content1 = `Arsenal faces ${opponent} in ` + (Math.ceil(days)) + ` day(s) 🔴 Stadium: ${stadium} ⚪
+		Location: ${city} 🔴 League: ${leagueName} ⚪ Current Form: ${arsenalForm}`
+		const content2 = `PREDICTIONS 🔴 Winner: ${winner} ⚪ Win or Draw: ${winOrDraw} 
+		🔴 O/U: ${overUnder} ⚪ ${advice}`
 
 		// send tweets
 		rwClient.v2.tweet(content1)
