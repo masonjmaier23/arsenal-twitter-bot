@@ -42,7 +42,8 @@ const getFixture = async () => {
 	
 		// tweet messages
 		const content1 = `⚽ Arsenal face ${opponent} in ${days} day(s) ${hours} hr(s) 🔴 Stadium: ${stadium} ⚪
-		Location: ${city} 🔴 League: ${leagueName} ⚪ Current Form: ${arsenalForm} ⚽`
+		Location: ${city} 🔴 League: ${leagueName} ⚪ Current Form: ${arsenalForm} ⚽ 
+		#arsenal #afc #coyg #sportsBetting #freePicks #goonerBot`
 	
 		const content2 = `⚽ PREDICTION 🔴 ${advice} ⚽`
 
