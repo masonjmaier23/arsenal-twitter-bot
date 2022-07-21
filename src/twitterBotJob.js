@@ -33,22 +33,24 @@ const getFixture = async () => {
 
 		// content 2 
 		// const winner = predictions.data.response[0].predictions.winner.name
-		const winOrDraw = predictions.data.response[0].predictions.win_or_draw.toLowerCase().includes("true")
-		? "Yes" : "No";
-		const overUnder = predictions.data.response[0].predictions.under_over.includes("-") 
-                ? predictions.data.response[0].predictions.under_over.replace(/-/g, "U") 
-                : predictions.data.response[0].predictions.under_over.replace(/+/g, "O")
+		// const winOrDraw = predictions.data.response[0].predictions.win_or_draw
+		// const winOrDraw = predictions.data.response[0].predictions.win_or_draw.includes("true") ? "Yes" : "No";
+		// const overUnder = predictions.data.response[0].predictions.under_over.includes("-") 
+        //         ? predictions.data.response[0].predictions.under_over.replace(/-/g, "U") 
+        //         : predictions.data.response[0].predictions.under_over.replace(/+/g, "O")
 		const advice = predictions.data.response[0].predictions.advice
 	
 		// tweet messages
 		const content1 = `⚽ Arsenal face ${opponent} in ${days} day(s) ${hours} hr(s) 🔴 Stadium: ${stadium} ⚪
 		Location: ${city} 🔴 League: ${leagueName} ⚪ Current Form: ${arsenalForm} ⚽`
-		
-		const content2 = `⚽ PREDICTION 🔴 ${advice} ⚪ Draw No Bet: ${winOrDraw} 🔴 U/O: ${overUnder} ⚽`
+	
+		const content2 = `⚽ PREDICTION 🔴 ${advice} ⚽`
 
 		// send tweets
 		rwClient.v2.tweet(content1)
 		rwClient.v2.tweet(content2)
+		// console.log(content1)
+		// console.log(content2)
 
 	} catch (error) {
 		console.log(error)
@@ -57,7 +59,7 @@ const getFixture = async () => {
 
 	// heroku uses GMT
 	// 0 15 * * * = 8am Phoenix MST
-	const job = cron.schedule("0 15 * * *", async () => {
+	const job = cron.schedule("0 16 * * *", async () => {
 		await getFixture()
 		console.log("Successfully sent a tweet at: " + new Date())
 })
