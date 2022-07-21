@@ -35,9 +35,9 @@ const getFixture = async () => {
 		// const winner = predictions.data.response[0].predictions.winner.name
 		const winOrDraw = predictions.data.response[0].predictions.win_or_draw.toLowerCase().includes("true")
 		? "Yes" : "No";
-		const overUnder = predictions.data.response[0].predictions.under_over.includes("-") ? 
-                predictions.data.response[0].predictions.under_over.replace("-", "U") : 
-                predictions.data.response[0].predictions.under_over.replace("+", "O")
+		const overUnder = predictions.data.response[0].predictions.under_over.includes("-") 
+                ? predictions.data.response[0].predictions.under_over.replace(/-/g, "U") 
+                : predictions.data.response[0].predictions.under_over.replace(/+/g, "O")
 		const advice = predictions.data.response[0].predictions.advice
 	
 		// tweet messages
