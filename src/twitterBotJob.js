@@ -32,19 +32,19 @@ const getFixture = async () => {
 		? predictions.data.response[0].teams.home.league.form : predictions.data.response[0].teams.away.league.form)
 
 		// content 2 
-		const winner = predictions.data.response[0].predictions.winner.name
+		// const winner = predictions.data.response[0].predictions.winner.name
 		const winOrDraw = predictions.data.response[0].predictions.win_or_draw.toLowerCase().includes("true")
 		? "Yes" : "No";
-		const overUnder = predictions.data.response[0].predictions.under_over
+		const overUnder = predictions.data.response[0].predictions.under_over.includes("-") ? 
+                predictions.data.response[0].predictions.under_over.replace("-", "U") : 
+                predictions.data.response[0].predictions.under_over.replace("+", "O")
 		const advice = predictions.data.response[0].predictions.advice
 	
 		// tweet messages
 		const content1 = `⚽ Arsenal face ${opponent} in ${days} day(s) ${hours} hr(s) 🔴 Stadium: ${stadium} ⚪
 		Location: ${city} 🔴 League: ${leagueName} ⚪ Current Form: ${arsenalForm} ⚽`
 		
-		const content2 = predictions.data.response[0].predictions.under_over.toLowerCase().includes("null") ? 
-		`⚽ PREDICTIONS 🔴 Winner: ${winner} ⚪ Draw No Bet: ${winOrDraw} ⚪ Prediction: ${advice} ⚽` : 
-		`⚽ PREDICTIONS 🔴 Winner: ${winner} ⚪ Draw No Bet: ${winOrDraw} 🔴 O/U: ${overUnder} ⚪ Prediction: ${advice} ⚽`
+		const content2 = `⚽ PREDICTION 🔴 ${advice} ⚪ Draw No Bet: ${winOrDraw} 🔴 U/O: ${overUnder} ⚽`
 
 		// send tweets
 		rwClient.v2.tweet(content1)
