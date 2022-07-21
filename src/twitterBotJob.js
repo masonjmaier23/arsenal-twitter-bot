@@ -1,6 +1,6 @@
 const rwClient = require("./twitterClient.js")
-const cron = require("node-cron");
-const axios = require('axios');
+const cron = require("node-cron")
+const axios = require('axios')
 
 const headers = {
 	"x-rapidapi-key": process.env.X_RAPIDAPI_KEY,
@@ -15,11 +15,11 @@ const getFixture = async () => {
 		const predictions = await axios.get(`https://v3.football.api-sports.io/predictions?fixture=${fixtureId}`, {"headers" : headers})
 
 		// days til match
-		const countDownDate = new Date(fixtures.data.response[0].fixture.date).getTime();
-		const now = new Date().getTime();
-		const timeLeft = countDownDate - now;
-		var days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-		var hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+		const countDownDate = new Date(fixtures.data.response[0].fixture.date).getTime()
+		const now = new Date().getTime()
+		const timeLeft = countDownDate - now
+		var days = Math.floor(timeLeft / (1000 * 60 * 60 * 24))
+		var hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
 		
 
 		// content 1 
@@ -27,14 +27,14 @@ const getFixture = async () => {
 		? fixtures.data.response[0].teams.away.name : fixtures.data.response[0].teams.home.name)
 		const stadium = fixtures.data.response[0].fixture.venue.name
 		const city = fixtures.data.response[0].fixture.venue.city
-		const leagueName= predictions.data.response[0].league.name;
+		const leagueName= predictions.data.response[0].league.name
 		const arsenalForm = (predictions.data.response[0].teams.home.name.includes("Arsenal") 
 		? predictions.data.response[0].teams.home.league.form : predictions.data.response[0].teams.away.league.form)
 
 		// content 2 
 		// const winner = predictions.data.response[0].predictions.winner.name
 		// const winOrDraw = predictions.data.response[0].predictions.win_or_draw
-		// const winOrDraw = predictions.data.response[0].predictions.win_or_draw.includes("true") ? "Yes" : "No";
+		// const winOrDraw = predictions.data.response[0].predictions.win_or_draw.includes("true") ? "Yes" : "No"
 		// const overUnder = predictions.data.response[0].predictions.under_over.includes("-") 
         //         ? predictions.data.response[0].predictions.under_over.replace(/-/g, "U") 
         //         : predictions.data.response[0].predictions.under_over.replace(/+/g, "O")
@@ -49,7 +49,9 @@ const getFixture = async () => {
 
 		// send tweets
 		rwClient.v2.tweet(content1)
-		rwClient.v2.tweet(content2)
+		if (days < 1) {
+			rwClient.v2.tweet(content2)
+		}
 		// console.log(content1)
 		// console.log(content2)
 
